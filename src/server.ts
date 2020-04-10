@@ -15,8 +15,8 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   // Use the body parser middleware for post requests
   app.use(bodyParser.json());
 
-  app.get("/filteredimage/" ,(req,res)=>{
-    let image_url =req.query.image_url
+  app.get("/filteredimage/" ,(req:express.Request,res:express.Response)=>{
+    let image_url:string =req.query.image_url
     if(image_url){
       let filteredimage = filterImageFromURL(image_url)
       //Promise Pending
@@ -39,7 +39,11 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
           deleteLocalFiles(filesPaths)
         });
       })
-    }})
+    }
+    else{
+      console.log("Please add an image to be filtered");
+    }
+  })
 
   // @TODO1 IMPLEMENT A RESTFUL ENDPOINT
   // GET /filteredimage?image_url={{URL}}
